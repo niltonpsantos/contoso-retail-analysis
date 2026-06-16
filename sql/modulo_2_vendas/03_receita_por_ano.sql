@@ -3,24 +3,38 @@
 -- Módulo   : 2 — Análise de Vendas
 -- Arquivo  : 03_receita_por_ano.sql
 -- Objetivo : Analisar a evolução da receita
---            anual do canal online usando
---            JOIN com DimDate
+--            anual comparando canal online e
+--            lojas físicas usando JOIN com DimDate
 -- Autor    : Nilton Pereira dos Santos
 -- =============================================
 
 SELECT 
-d.CalendarYear,
-SUM(f.SalesAmount)
+	'Canal Online' AS canal, 
+	d.CalendarYear,
+	SUM(f.SalesAmount) AS 'Receita Total'
 FROM FactOnlineSales f
-INNER JOIN DimDate d ON d.DateKey = f.DateKey
+INNER JOIN DimDate d ON f.DateKey = d.DateKey
 GROUP BY d.CalendarYear
-ORDER BY d.CalendarYear ASC
+
+UNION ALL
+
+SELECT 
+	'Lojas Físicas' AS canal,
+	d.CalendarYear,
+	SUM(s.SalesAmount) AS 'Receita Total'
+FROM FactSales s
+INNER JOIN DimDate d ON s.DateKey = d.DateKey
+GROUP BY d.CalendarYear 
+
+ORDER BY d.CalendarYear ASC, canal
 
 -- =============================================
 -- RESULTADO E INTERPRETAÇÃO:
--- 2007: R$ 1,01 Bi — maior receita do período
--- 2008: R$ 849 Mi — queda de ~16% (crise financeira global)
--- 2009: R$ 857 Mi — leve recuperação de ~1%
--- Hipóteses para investigar: variação de preço,
--- volume de pedidos e custo dos produtos
+-- 2007: Online 1,01 Bi | Físico 4,56 Bi
+-- 2008: Online 849 Mi  | Físico 4,11 Bi (crise financeira global)
+-- 2009: Online 857 Mi  | Físico 3,74 Bi
+-- Insight: online se recuperou em 2009 (+1%)
+-- enquanto físico continuou caindo (-9%).
+-- Possível migração de consumidores para o
+-- canal digital em busca de preços menores.
 -- =============================================
