@@ -75,8 +75,24 @@ Reconhecimento do banco, verificação de integridade e mapeamento do período d
 
 ---
 
-### 🔄 Módulo 2 — Análise de Vendas *(em desenvolvimento)*
-Receita por canal, categoria, produto e território. Evolução temporal e impacto de promoções.
+### ✅ Módulo 2 — Análise de Vendas
+Análise completa de receita comparando canais, categorias, evolução temporal e impacto de promoções.
+
+**Análises realizadas:**
+- Receita total, volume e ticket médio por canal (online vs físico)
+- Distribuição de receita por categoria de produto
+- Evolução anual de receita por canal (2007–2009)
+- Sazonalidade mensal — identificação de picos e vales
+- Top 10 produtos por receita no canal online
+- Impacto de promoções na receita e volume de pedidos
+
+**Principais insights:**
+- Lojas físicas geram 4,5x mais receita que o online, com ticket médio 17x maior
+- Online mostrou resiliência em 2009 (+1%) enquanto físico continuou caindo (-9%)
+- Maio e Julho são os meses de maior receita — padrão "back-to-school"
+- 65% da receita online vem de vendas promocionais
+
+**Conceitos SQL praticados:** `UNION ALL`, `INNER JOIN` encadeado, `GROUP BY`, `CASE WHEN`, `TOP(N)`, `MONTH()`, `DimDate`
 
 ---
 
